@@ -1,0 +1,22 @@
+name: Token Permission Demo
+
+on:
+  workflow_dispatch: # Disparo manual para testar fácil
+
+permissions:
+  issues: write # AQUI: Ajustamos a permissão do GITHUB_TOKEN para poder escrever issues
+
+jobs:
+  create-issue-example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Criar Issue Automatizada
+        run: |
+          gh issue create \
+            --title "Teste de Permissão GITHUB_TOKEN" \
+            --body "Esta issue foi criada automaticamente pelo GitHub Actions para validar a rubrica de permissões."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
