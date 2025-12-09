@@ -1,0 +1,46 @@
+name: Final Production Pipeline
+
+on:
+  push:
+    branches: [ "main" ] # Regra 1: Só roda na main
+
+jobs:
+  # Job 1: Ambiente de Desenvolvimento
+  deploy-dev:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_ENV: dev # Regra 2: Variável de ambiente específica
+    steps:
+      - name: Deploy para Dev
+        env:
+          API_TOKEN: ${{ secrets.API_KEY }} # Regra 3: Uso de Secrets
+        run: |
+          echo "🚀 Iniciando deploy no ambiente: $TARGET_ENV"
+          if [ -n "$API_TOKEN" ]; then
+            echo "🔑 Credenciais verificadas com sucesso."
+          fi
+          echo "✅ Deploy em DEV concluído."
+
+  # Job 2: Ambiente de Staging (Só roda se Dev passar)
+  deploy-staging:
+    needs: deploy-dev # Cria dependência (sequencial)
+    runs-on: ubuntu-latest
+    env:
+      TARGET_ENV: staging
+    steps:
+      - name: Deploy para Staging
+        run: |
+          echo "🚧 Promovendo código para: $TARGET_ENV"
+          echo "✅ Deploy em STAGING concluído."
+
+  # Job 3: Ambiente de Produção (Só roda se Staging passar)
+  deploy-prod:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    env:
+      TARGET_ENV: prod
+    steps:
+      - name: Deploy para Produção
+        run: |
+          echo "🚨 ATENÇÃO: Iniciando deploy crítico em: $TARGET_ENV"
+          echo "🚀 Aplicação está NO AR em PRODUÇÃO!"
