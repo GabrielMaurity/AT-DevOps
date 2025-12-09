@@ -1,0 +1,12 @@
+name: Release Deploy Workflow
+
+on:
+  release:
+    types: [published] # Dispara apenas quando clica em "Publish release"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simular Deploy
+        run: echo "Deploy realizado com sucesso"

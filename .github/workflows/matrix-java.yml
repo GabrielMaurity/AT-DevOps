@@ -1,0 +1,22 @@
+name: Matrix Java Strategy
+
+on: [push] # Pode ser em push para facilitar o teste
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [11, 17] # Define as versões que queremos testar
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Java ${{ matrix.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'temurin'
+
+      - name: Exibir Versao
+        run: java -version # Vai mostrar no log qual versão está ativa
