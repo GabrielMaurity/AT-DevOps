@@ -1,14 +1,8 @@
 # DevCalc API - DevOps Final Assessment
 
-![Build Status](https://github.com/SEU-USUARIO/devcalc-api/actions/workflows/maven-ci.yml/badge.svg)
+![Build Status](https://github.com/GabrielMaurity/devcalc-api/actions/workflows/maven-ci.yml/badge.svg)
 
 Este projeto é a consolidação da disciplina de DevOps. Trata-se de uma API REST em Java (Javalin) para cálculos matemáticos, utilizada para demonstrar práticas de CI/CD, Containerização e Orquestração.
-
-## 👨‍💻 Aluno
-**Nome:** [Seu Nome Aqui]
-**Curso:** Análise e Desenvolvimento de Sistemas
-
----
 
 ## 🚀 Tecnologias Utilizadas
 - **Linguagem:** Java 17 (Maven)
