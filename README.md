@@ -1,21 +1,21 @@
-# DevCalc API
+# DevCalc API - DevOps Final Assessment
+
 [![Hello Workflow](https://github.com/GabrielMaurity/AT-DevOps/actions/workflows/hello.yml/badge.svg)](https://github.com/GabrielMaurity/AT-DevOps/actions/workflows/hello.yml)
-## Objetivo
-Esta aplicação é uma API REST desenvolvida em Java para realizar operações matemáticas simples (soma, subtração, multiplicação e divisão). O projeto serve como base para validar pipelines de CI/CD, incluindo testes automatizados, dockerização e simulação de deploy.
 
-## Ferramentas Utilizadas
-- **Linguagem:** Java 17
+Este projeto é a consolidação da disciplina de DevOps. Trata-se de uma API REST em Java (Javalin) para cálculos matemáticos, utilizada para demonstrar práticas de CI/CD, Containerização e Orquestração.
+
+## 🚀 Tecnologias Utilizadas
+- **Linguagem:** Java 17 (Maven)
 - **Framework:** Javalin
-- **Build Tool:** Maven
-- **Testes:** JUnit 5
+- **Containerização:** Docker & Docker Compose
+- **Orquestração:** Kubernetes
+- **CI/CD:** GitHub Actions
+- **Bancos de Dados:** PostgreSQL e Redis
 
-## Como executar localmente
+---
 
-1. Clone o repositório:
-   git clone https://github.com/SEU-USUARIO/devcalc-api.git
-
-2. Compile o projeto:
-   mvn clean install
+## 📦 Etapa 1: Dockerização
+A aplicação foi empacotada utilizando um `Dockerfile` com **Multistage Build** para otimização de imagem.
 
 3. Execute a aplicação (após implementar a classe Main):
    mvn exec:java -Dexec.mainClass="com.devcalc.Main"
@@ -27,3 +27,7 @@ O Git é a espinha dorsal do CI/CD, permitindo que cada mudança no código seja
 **Importância de Branches e Tags:**
 - **Branches:** Permitem desenvolvimento isolado (Feature Branches) sem quebrar a produção (Main), facilitando Code Reviews e testes paralelos.
 - **Tags:** Marcam pontos imutáveis na história (Releases), garantindo que saibamos exatamente qual versão do código está rodando em produção.
+### Como rodar com Docker Compose
+O ambiente sobe a API, banco de dados (Postgres), cache (Redis) e um container de teste.
+```bash
+docker compose up -d --build
