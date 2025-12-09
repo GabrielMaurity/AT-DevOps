@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # 1. Sua aplicação Java (DevCalc)
+  devcalc-app:
+    build: .
+    container_name: devcalc-app
+    ports:
+      - "7000:7000"
+    networks:
+      - devcalc-network
+    volumes:
+      - shared-data:/var/shared  # Monta o volume compartilhado
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "7000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # 2. Banco de Dados Relacional (Postgres)
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: devcalc
+    networks:
+      - devcalc-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 3. Banco de Dados Não-Relacional (Redis)
+  redis-db:
+    image: redis:alpine
+    container_name: redis-db
+    networks:
+      - devcalc-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # 4. Container para Testes (Alpine) - Para cumprir o requisito de testar conectividade
+  tester:
+    image: alpine:latest
+    container_name: tester
+    # Mantém o container rodando para podermos entrar nele
+    command: tail -f /dev/null
+    networks:
+      - devcalc-network
+    volumes:
+      - shared-data:/var/shared # Monta o MESMO volume da aplicação
+
+networks:
+  devcalc-network:
+    driver: bridge
+
+volumes:
+  shared-data:
