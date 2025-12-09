@@ -1,21 +1,29 @@
-# DevCalc API
-[![Hello Workflow](https://github.com/GabrielMaurity/AT-DevOps/actions/workflows/hello.yml/badge.svg)](https://github.com/GabrielMaurity/AT-DevOps/actions/workflows/hello.yml)
-## Objetivo
-Esta aplicação é uma API REST desenvolvida em Java para realizar operações matemáticas simples (soma, subtração, multiplicação e divisão). O projeto serve como base para validar pipelines de CI/CD, incluindo testes automatizados, dockerização e simulação de deploy.
+# DevCalc API - DevOps Final Assessment
 
-## Ferramentas Utilizadas
-- **Linguagem:** Java 17
+![Build Status](https://github.com/SEU-USUARIO/devcalc-api/actions/workflows/maven-ci.yml/badge.svg)
+
+Este projeto é a consolidação da disciplina de DevOps. Trata-se de uma API REST em Java (Javalin) para cálculos matemáticos, utilizada para demonstrar práticas de CI/CD, Containerização e Orquestração.
+
+## 👨‍💻 Aluno
+**Nome:** [Seu Nome Aqui]
+**Curso:** Análise e Desenvolvimento de Sistemas
+
+---
+
+## 🚀 Tecnologias Utilizadas
+- **Linguagem:** Java 17 (Maven)
 - **Framework:** Javalin
-- **Build Tool:** Maven
-- **Testes:** JUnit 5
+- **Containerização:** Docker & Docker Compose
+- **Orquestração:** Kubernetes
+- **CI/CD:** GitHub Actions
+- **Bancos de Dados:** PostgreSQL e Redis
 
-## Como executar localmente
+---
 
-1. Clone o repositório:
-   git clone https://github.com/SEU-USUARIO/devcalc-api.git
+## 📦 Etapa 1: Dockerização
+A aplicação foi empacotada utilizando um `Dockerfile` com **Multistage Build** para otimização de imagem.
 
-2. Compile o projeto:
-   mvn clean install
-
-3. Execute a aplicação (após implementar a classe Main):
-   mvn exec:java -Dexec.mainClass="com.devcalc.Main"
+### Como rodar com Docker Compose
+O ambiente sobe a API, banco de dados (Postgres), cache (Redis) e um container de teste.
+```bash
+docker compose up -d --build
