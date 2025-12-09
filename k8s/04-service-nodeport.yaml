@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devcalc-external-service
+  namespace: tp2
+spec:
+  # NodePort abre uma porta no seu computador para acessar o cluster
+  type: NodePort
+  selector:
+    # Label do seu Deployment (02-deployment.yaml)
+    app: devcalc
+  ports:
+    - protocol: TCP
+      port: 7000       # Porta interna do Cluster
+      targetPort: 7000 # Porta do Container Java
+      nodePort: 30003  # Porta fixa exigida pelo enunciado

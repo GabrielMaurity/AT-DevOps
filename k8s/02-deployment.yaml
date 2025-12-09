@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcalc-deployment
+  namespace: tp2
+spec:
+  # O enunciado pede para iniciar com 2 réplicas
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devcalc
+  template:
+    metadata:
+      labels:
+        app: devcalc
+    spec:
+      containers:
+        - name: devcalc-container
+          image: gfmaurityinfnet/devcalc-api:latest
+          ports:
+            - containerPort: 7000
+
+          livenessProbe:
+            httpGet:
+              path: /add?a=1&b=1
+              port: 7000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /add?a=1&b=1
+              port: 7000
+            initialDelaySeconds: 10
+            periodSeconds: 5
