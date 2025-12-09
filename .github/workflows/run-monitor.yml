@@ -1,0 +1,60 @@
+name: Monitor and Debug Workflow
+
+on:
+  workflow_dispatch: # Permite rodar manualmente para testar fácil
+  push:
+    branches: ["ci/setup"]
+
+env:
+  # Rubrica: Variáveis via env
+  GLOBAL_VAR: "Configuração Global"
+
+jobs:
+  build-and-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Criar Arquivo de Log
+        run: echo "Log de build gerado em $(date)" > build.log
+
+      # Rubrica: Utilizar action upload-artifact
+      - name: Upload de Artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: log-build
+          path: build.log
+
+  deploy-check:
+    needs: build-and-artifact
+    runs-on: ubuntu-latest
+    # Rubrica: Configurar ambiente protegido
+    environment:
+      name: production
+      url: https://producao.exemplo.com
+
+    steps:
+      # Rubrica: Validar variáveis obrigatórias
+      - name: Validar Variaveis
+        run: |
+          if [ -z "${{ secrets.API_KEY }}" ]; then
+            echo "::error::API_KEY não configurada!"
+            exit 1
+          fi
+
+      # Rubrica: Variáveis em diferentes níveis e ::warning::
+      - name: Monitoramento
+        env:
+          STEP_VAR: "Nível de Step"
+        run: |
+          echo "Global: $GLOBAL_VAR"
+          echo "Step: $STEP_VAR"
+          echo "::warning::Este é um aviso personalizado para diagnóstico."
+
+      # Rubrica: Job Summaries
+      - name: Gerar Resumo
+        run: |
+          echo "### 🚀 Resumo do Deploy" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** Sucesso" >> $GITHUB_STEP_SUMMARY
+          echo "- **Artefato:** Gerado e salvo" >> $GITHUB_STEP_SUMMARY
+          echo "- **Avisos:** Verifique os logs de warning" >> $GITHUB_STEP_SUMMARY
