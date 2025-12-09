@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-internal-service
+  namespace: tp2
+spec:
+  # ClusterIP é o padrão (acessível apenas dentro do cluster)
+  type: ClusterIP
+  selector:
+    # Este label tem que bater com o que colocamos no 01-pod-multi.yaml
+    app: multi-container-app
+  ports:
+    - protocol: TCP
+      port: 8081       # Porta exposta pelo Service
+      targetPort: 80   # Porta real do container (Nginx)
