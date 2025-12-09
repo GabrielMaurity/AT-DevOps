@@ -1,0 +1,13 @@
+name: Tests Workflow
+
+on: [pull_request] # Disparado apenas em PRs
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4 # Baixa o código do repositório
+
+      - name: Executar simulacao de testes
+        run: echo "Rodando testes"

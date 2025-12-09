@@ -1,5 +1,5 @@
 # DevCalc API
-
+[![Hello Workflow](https://github.com/GabrielMaurity/AT-DevOps/actions/workflows/hello.yml/badge.svg)](https://github.com/GabrielMaurity/AT-DevOps/actions/workflows/hello.yml)
 ## Objetivo
 Esta aplicação é uma API REST desenvolvida em Java para realizar operações matemáticas simples (soma, subtração, multiplicação e divisão). O projeto serve como base para validar pipelines de CI/CD, incluindo testes automatizados, dockerização e simulação de deploy.
 
